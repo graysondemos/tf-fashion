@@ -29,14 +29,7 @@ model.compile(optimizer = tf.train.AdamOptimizer(), loss = "sparse_categorical_c
 
 model.fit(train, train_labels, epochs = 5)
 
-img = tf.image.decode_jpeg(tf.read_file("test5.jpg"), channels = 1)
-sess = tf.InteractiveSession()
-img = sess.run(img)
-sess.close()
-img = img.reshape(1, 28, 28)
-img = img / 255.0
+model.save("model.h5")
 
-labels = ["T-Shirt", "Pants", "Pullover", "Dress", "Coat", "Sandal", "Shirt", "Sneaker", "Bag", "Ankle Boot"]
-
-prediction = model.predict(img)
-print(labels[np.argmax(prediction[0])])
+loss, accuracy = model.evaluate(test, test_labels)
+print("Accuracy: " + str(accuracy))
