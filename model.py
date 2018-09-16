@@ -1,11 +1,10 @@
 import tensorflow as tf
 from tensorflow import keras
 import numpy as np
-import matplotlib.pyplot as plt
 import pandas as pd
 
-train = pd.read_csv("fashion-mnist_train.csv", sep = ",")
-test = pd.read_csv("fashion-mnist_test.csv", sep = ",")
+train = pd.read_csv("fashion-mnist_train.csv")
+test = pd.read_csv("fashion-mnist_test.csv")
 
 train = train.values
 test = test.values
@@ -20,10 +19,13 @@ test = test.reshape(10000, 28, 28)
 train = train / 255.0
 test = test / 255.0
 
-model = keras.Sequential([
-	keras.layers.Flatten(input_shape = (28, 28)),
-	keras.layers.Dense(128, activation = tf.nn.relu),
-	keras.layers.Dense(10, activation = tf.nn.softmax)])
+model = keras.Sequential()
+
+model.add(keras.layers.Flatten(input_shape = (28, 28)))
+
+model.add(keras.layers.Dense(128, activation = "relu"))
+
+model.add(keras.layers.Dense(10, activation = "softmax"))
 
 model.compile(optimizer = tf.train.AdamOptimizer(), loss = "sparse_categorical_crossentropy", metrics = ["accuracy"])
 
