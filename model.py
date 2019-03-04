@@ -21,7 +21,11 @@ test = test / 255.0
 
 model = keras.Sequential()
 
-model.add(keras.layers.Flatten(input_shape = (28, 28)))
+model.add(keras.layers.Conv1D(64, kernel_size = 3, activation = "relu", input_shape = (28, 28)))
+
+model.add(keras.layers.Conv1D(32, kernel_size = 3, activation = "relu"))
+
+model.add(keras.layers.Flatten())
 
 model.add(keras.layers.Dense(128, activation = "relu"))
 
